@@ -2,12 +2,11 @@
     $ban_kinh = "";
     $chu_vi = "";
     $dien_tich = "";
-    $pi = 3.14;
 
     if(isset($_POST["ban_kinh"])){
         $ban_kinh = $_POST["ban_kinh"];
-        $chu_vi = 2 * $pi * $ban_kinh; 
-        $dien_tich = $pi * pow($ban_kinh, 2);
+        $chu_vi = 2 * pi(3.14) * $ban_kinh; 
+        $dien_tich = pi(3.14) * pow($ban_kinh, 2);
     }
 ?>
 
