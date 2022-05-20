@@ -1,0 +1,13 @@
+form{
+    width: 500px;
+    text-align: center;
+    margin-left: 25%;
+}
+.form-group legend{
+    background-color: orange;
+    color: white;
+}
+.form-horizontal{
+    background-color: pink;
+    padding: 0px 20px 10px 20px;
+}
