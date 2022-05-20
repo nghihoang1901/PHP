@@ -7,7 +7,7 @@
         $so_A = $_POST["so_A"];
         $so_B = $_POST["so_B"];
         
-        if(($so_A - $so_B) > 0){
+        if($so_A > $so_B){
             $so_lon_hon = $so_A;
         }
         else{
