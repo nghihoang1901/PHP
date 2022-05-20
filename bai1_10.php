@@ -59,13 +59,13 @@
                     <div class="col-sm-2">                        
                         <input type="text" name="so_A" id="input" class="form-control" value="<?php echo $so_A ?>">
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-2" style="margin: 8px -45px; ">
                         x +
                     </div>
                     <div class="col-sm-2">
                         <input type="text" name="so_B" id="input" class="form-control" value="<?php echo $so_B ?>"> 
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-2" style="margin: 8px -45px; ">
                         = 0
                     </div>                                                   
                     
