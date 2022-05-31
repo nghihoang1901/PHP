@@ -12,7 +12,7 @@
         //     echo "</td>";
         // echo "</table>";
         for ($i = 1; $i <= 10 ; $i ++){
-            $phep_tinh= $nhap_so * $i;
+            $phep_tinh = $nhap_so * $i;
             $ket_qua .= "$nhap_so x $i = $phep_tinh </br>";
         }
     }

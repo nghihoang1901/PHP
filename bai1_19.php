@@ -1,26 +1,25 @@
 <?php
-    $so_N = 0;
-    $list = [];
+    $so_N = "";
+    $list = "";
+    $_SNT = "";
 
     if(isset($_POST["so_N"])){
         $so_N = $_POST["so_N"];
 
-        if($so_N == 0){
-            return 0;
+        function check($so_N){
+            for ($i=2; $i < sqrt($so_N) ; $i++) { 
+                if($so_N % $i == 0){
+                    return false;
+                }
+            }
+            return true;
         }
-        else{
-            for ($i=2; $i < $so_N ; $i++) { 
-                if(($so_N % $i) == 0){
-                    return 0;
-                }       
+        for ($i=2; $i <= $so_N; $i++) { 
+            if(check($i) == true){
+                $list .="$i ";
             }
         }
-        return 1;
-        for ($i=2; $i < $so_N ; $i++){
-            if($list[i] == 1);
-            echo $list;
-        }
-
+        
     }
 ?>
 
