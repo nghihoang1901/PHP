@@ -16,7 +16,7 @@
         }
         for ($i=2; $i <= $so_N; $i++) { 
             if(check($i) == true){
-                $list .="$i ";
+                $list .="$i ; ";
             }
         }
         
