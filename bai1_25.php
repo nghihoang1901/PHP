@@ -1,46 +1,18 @@
-<?php 
-    $_so = "";
-    $_chu = "";
-    $hang_tram = "";
-    $hang_chuc = "";
-    $hang_don_vi = "";
-    $ket_qua = "";
+<?php
+    $_chuoi= "";
+    $_find = "";
+    $_ket_qua = "";
 
-    if(isset($_POST["so"])){
-        $_so = $_POST["so"];
-    
-            switch ($_so) {
-                case '1':
-                    $_chu = "Một";
-                    break;
-                case '2':
-                    $_chu = "Hai";
-                    break;
-                case '3':
-                    $_chu = "Ba";
-                    break;
-                case '4':
-                    $_chu = "Bốn";
-                    break;
-                case '5':
-                    $_chu = "Năm";
-                    break;
-                case '6':
-                    $_chu = "Sáu";
-                    break;
-                case '7':
-                    $_chu = "Bảy";
-                    break;
-                case '8':
-                    $_chu = "Tám";
-                    break;
-                case '9':
-                    $_chu = "Chín";
-                    break;
-            }
-        
-            
-        
+    if(isset($_POST["chuoi"]) && isset($_POST["find"])){
+        $_chuoi = $_POST["chuoi"];
+        $_find = $_POST["find"];
+        if(strpos($_chuoi, $_find)){
+            $_ket_qua .= "Tìm thấy từ $_find trong chuỗi tại vị trí số " .strpos($_chuoi, $_find);
+        }
+        else{
+            $_ket_qua .="Không tìm thấy từ trong chuỗi";
+        }
+        // $_ket_qua .= strpos($_chuoi, $_find);
     }
 ?>
 
@@ -68,25 +40,36 @@
             
             <form action="" method="POST" class="form-horizontal" role="form">
                     <div class="form-group">
-                        <legend>ĐỌC SỐ</legend>
+                        <legend>TÌM TỪ TRONG CHUỖI</legend>
                     </div>
                     <div class="form-group">
+                        <div class="col-sm-3">
+                            Chuỗi:
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" name="chuoi" id="input" class="form-control" value="<?php echo $_chuoi ?>">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3">
+                            Từ cần tìm:
+                        </div>
                         <div class="col-sm-5">
-                            Nhập số ( 0 -> 999):
+                            <input type="text" name="find" id="input" class="form-control" value="<?php echo $_find ?>">
                         </div>
-                        <div class="col-sm-3">                           
-                            <input type="text" name="so" id="input" class="form-control" value="<?php echo $_so ?>">
-                        </div>
-                        <div class="col-sm-3">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+            
+                    <div class="form-group">
+                        <div class="col-sm-10 col-sm-offset-2">
+                            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-3">
-                            Bằng chữ:
+                            
                         </div>
-                    <div class="col-sm-8">                           
-                            <input type="text" name="chu" id="input" class="form-control" value="<?php echo $_chu ?>">
+                        <div class="col-sm-8">
+                            <input type="text" style="color: red" readonly="true" name="ket_qua" id="input" class="form-control" value="<?php echo $_ket_qua ?>">
                         </div>
                     </div>
             </form>

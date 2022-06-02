@@ -1,46 +1,18 @@
 <?php 
-    $_so = "";
-    $_chu = "";
-    $hang_tram = "";
-    $hang_chuc = "";
-    $hang_don_vi = "";
-    $ket_qua = "";
+    $_date ="";
+    $_month = "";
+    $_year = "";
+    $_day = "";
+    $_ket_qua = "";
 
-    if(isset($_POST["so"])){
-        $_so = $_POST["so"];
-    
-            switch ($_so) {
-                case '1':
-                    $_chu = "Một";
-                    break;
-                case '2':
-                    $_chu = "Hai";
-                    break;
-                case '3':
-                    $_chu = "Ba";
-                    break;
-                case '4':
-                    $_chu = "Bốn";
-                    break;
-                case '5':
-                    $_chu = "Năm";
-                    break;
-                case '6':
-                    $_chu = "Sáu";
-                    break;
-                case '7':
-                    $_chu = "Bảy";
-                    break;
-                case '8':
-                    $_chu = "Tám";
-                    break;
-                case '9':
-                    $_chu = "Chín";
-                    break;
-            }
         
-            
-        
+    if(isset($_POST["date"]) && isset($_POST["month"]) && isset($_POST["year"])){
+        $_date = $_POST["date"];
+        $_month = $_POST["month"];
+        $_year = $_POST["year"];
+
+        $_day=date_create("$_date-$_month-$_year");
+        $_ket_qua .= "Ngày " .$_date. " tháng ".$_month." năm ".$_year. " là ngày " .date_format($_day,"l");
     }
 ?>
 
@@ -68,25 +40,36 @@
             
             <form action="" method="POST" class="form-horizontal" role="form">
                     <div class="form-group">
-                        <legend>ĐỌC SỐ</legend>
+                        <legend>TÌM THỨ TRONG TUẦN</legend>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-5">
-                            Nhập số ( 0 -> 999):
+                        <div class="col-sm-3 ">
+                            Ngày/Tháng/Năm:
                         </div>
-                        <div class="col-sm-3">                           
-                            <input type="text" name="so" id="input" class="form-control" value="<?php echo $_so ?>">
+                        <div class="col-sm-2">
+                            <input type="text" name="date" id="input" class="form-control" value="<?php echo $_date ?>">
+                        </div>
+                        <div class="col-sm-1">
+                            /
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="text" name="month" id="input" class="form-control" value="<?php echo $_month ?>">
+                        </div>
+                        <div class="col-sm-1">
+                            /
                         </div>
                         <div class="col-sm-3">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <input type="text" name="year" id="input" class="form-control" value="<?php echo $_year ?>">
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-3">
-                            Bằng chữ:
+                        <div class="col-sm-10 col-sm-offset-2">
+                            <button type="submit" class="btn btn-primary">Tìm thứ trong tuần</button>
                         </div>
-                    <div class="col-sm-8">                           
-                            <input type="text" name="chu" id="input" class="form-control" value="<?php echo $_chu ?>">
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-10">
+                            <input type="text" style="color: red" readonly="true" name="ket_qua" id="input" class="form-control" value="<?php echo $_ket_qua ?>">
                         </div>
                     </div>
             </form>

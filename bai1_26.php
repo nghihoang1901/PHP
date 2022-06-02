@@ -1,46 +1,22 @@
-<?php 
-    $_so = "";
-    $_chu = "";
-    $hang_tram = "";
-    $hang_chuc = "";
-    $hang_don_vi = "";
-    $ket_qua = "";
+<?php
+    $_first= "";
+    $_second = "";
+    $_ket_qua = "";
 
-    if(isset($_POST["so"])){
-        $_so = $_POST["so"];
-    
-            switch ($_so) {
-                case '1':
-                    $_chu = "Một";
-                    break;
-                case '2':
-                    $_chu = "Hai";
-                    break;
-                case '3':
-                    $_chu = "Ba";
-                    break;
-                case '4':
-                    $_chu = "Bốn";
-                    break;
-                case '5':
-                    $_chu = "Năm";
-                    break;
-                case '6':
-                    $_chu = "Sáu";
-                    break;
-                case '7':
-                    $_chu = "Bảy";
-                    break;
-                case '8':
-                    $_chu = "Tám";
-                    break;
-                case '9':
-                    $_chu = "Chín";
-                    break;
+    if(isset($_POST["first"]) && isset($_POST["second"])){
+        $_first = $_POST["first"];
+        $_second = $_POST["second"];
+        if(strcmp($_first, $_second ) == 0){
+            $_ket_qua ="Hai chuỗi giống nhau";
+        } 
+        else if(strcmp($_first, $_second ) != 0){
+            if($_first < $_second)
+                $_ket_qua ="Chuỗi thứ nhất ngắn hơn chuỗi thứ hai";
+            else{
+                $_ket_qua ="Chuỗi thứ nhât dài hơn chuỗi thứ hai";
             }
-        
-            
-        
+        } 
+         
     }
 ?>
 
@@ -68,25 +44,36 @@
             
             <form action="" method="POST" class="form-horizontal" role="form">
                     <div class="form-group">
-                        <legend>ĐỌC SỐ</legend>
+                        <legend>SO SÁNH CHUỖI</legend>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-5">
-                            Nhập số ( 0 -> 999):
-                        </div>
-                        <div class="col-sm-3">                           
-                            <input type="text" name="so" id="input" class="form-control" value="<?php echo $_so ?>">
-                        </div>
                         <div class="col-sm-3">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            Chuỗi thứ nhất:
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" name="first" id="input" class="form-control" value="<?php echo $_first ?>">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-3">
-                            Bằng chữ:
+                            Chuỗi thứ hai:
                         </div>
-                    <div class="col-sm-8">                           
-                            <input type="text" name="chu" id="input" class="form-control" value="<?php echo $_chu ?>">
+                        <div class="col-sm-8">
+                            <input type="text" name="second" id="input" class="form-control" value="<?php echo $_second ?>">
+                        </div>
+                    </div>
+            
+                    <div class="form-group">
+                        <div class="col-sm-10 col-sm-offset-2">
+                            <button type="submit" class="btn btn-primary">So sánh</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3">
+                            
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" style="color: red" readonly="true" name="ket_qua" id="input" class="form-control" value="<?php echo $_ket_qua ?>">
                         </div>
                     </div>
             </form>
