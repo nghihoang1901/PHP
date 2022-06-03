@@ -5,41 +5,70 @@
     $hang_chuc = "";
     $hang_don_vi = "";
     $ket_qua = "";
+    $mang_chu = array('Không', "Một", 'hai', 'ba', 'bốn', 'năm', 'sáu', 'bảy', 'tám', 'chín');
+    $mang_hang_don_vi = array('Không' ,"Mốt", 'hai', 'ba', 'bốn', 'lăm', 'sáu', 'bảy', 'tám', 'chín');
 
     if(isset($_POST["so"])){
         $_so = $_POST["so"];
-    
-            switch ($_so) {
-                case '1':
-                    $_chu = "Một";
-                    break;
-                case '2':
-                    $_chu = "Hai";
-                    break;
-                case '3':
-                    $_chu = "Ba";
-                    break;
-                case '4':
-                    $_chu = "Bốn";
-                    break;
-                case '5':
-                    $_chu = "Năm";
-                    break;
-                case '6':
-                    $_chu = "Sáu";
-                    break;
-                case '7':
-                    $_chu = "Bảy";
-                    break;
-                case '8':
-                    $_chu = "Tám";
-                    break;
-                case '9':
-                    $_chu = "Chín";
-                    break;
+         
+        $hang_don_vi = $_so % 10;
+        $hang_chuc = (($_so - $hang_don_vi)/10) % 10;
+        $hang_tram = (((($_so - $hang_don_vi)/10) - $hang_chuc)/10) % 10;
+
+        function doc_so($_so, $don_vi_moi=0){
+            global $mang_chu;
+            global $mang_hang_don_vi;
+            if($don_vi_moi == 1){
+                return $mang_hang_don_vi[$_so];
             }
-        
-            
+            else{
+                return $mang_chu[$_so];
+            }
+        }
+        if($hang_tram == 0){
+            if($hang_chuc == 0 && $hang_don_vi == 0){
+                $_chu .= "không";
+            }
+            else if($hang_chuc == 0 && $hang_don_vi != 0){
+                $_chu .= doc_so($hang_don_vi);
+            }
+            else if($hang_chuc != 0 && $hang_don_vi == 0){
+                if($hang_chuc == 1){
+                    $_chu .= " Mười ";
+                }
+                else{
+                    $_chu .= doc_so($hang_chuc) ." mươi ";
+                }                
+            }
+            else{
+                if($hang_chuc == 1){
+                    $_chu .= " mười ". doc_so($hang_don_vi);
+                }
+                else{
+                    $_chu .= doc_so($hang_chuc) ." mươi ". doc_so($hang_don_vi, 1);
+                }
+                
+            }
+        }
+        else{
+            if($hang_chuc == 0 && $hang_don_vi == 0){
+                $_chu .= doc_so($hang_tram). " trăm";
+            }
+            else if($hang_chuc == 0 && $hang_don_vi != 0){
+                $_chu .= doc_so($hang_tram). " trăm lẻ ". doc_so($hang_don_vi);
+            }
+            else if($hang_chuc != 0 && $hang_don_vi == 0){
+                if($hang_chuc == 1){
+                    $_chu .= doc_so($hang_tram). " trăm mười";
+                }
+                else{
+                    $_chu .= doc_so($hang_tram). " trăm ". doc_so($hang_chuc). " mươi";
+                }   
+            }
+            else{
+                $_chu .= doc_so($hang_tram). " trăm ". doc_so($hang_chuc). " mươi ". doc_so($hang_don_vi, 1);
+            }
+        }
         
     }
 ?>

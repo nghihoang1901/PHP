@@ -1,25 +1,23 @@
 <?php
     $so_N = "";
     $list = "";
-    $_SNT = "";
 
     if(isset($_POST["so_N"])){
         $so_N = $_POST["so_N"];
 
-        function check($so_N){
-            for ($i=2; $i < sqrt($so_N) ; $i++) { 
-                if($so_N % $i == 0){
-                    return false;
+        for ($i=2; $i < $so_N ; $i++) { 
+            $flag = 0;
+            if($i > 2){               
+                for($j = 2; $j < $i; $j++){
+                    if($i % $j == 0){
+                        $flag = 1;
+                    }
                 }
             }
-            return true;
-        }
-        for ($i=2; $i <= $so_N; $i++) { 
-            if(check($i) == true){
-                $list .="$i ; ";
+            if($flag == 0){
+                $list .= $i. " ";
             }
-        }
-        
+        }    
     }
 ?>
 
@@ -58,13 +56,9 @@
                             Nhập N: 
                         </div>
                         <div class="col-sm-7">
-                            
-                            <input type="text" name="so_N" id="input" class="form-control" value="<?php echo $so_N ?>">
-                            
+                            <input type="text" name="so_N" id="input" class="form-control" value="<?php echo $so_N ?>">                            
                         </div>
                     </div>
-                    
-            
                     <div class="form-group">
                         <div class="col-sm-10 col-sm-offset-2">
                             <button type="submit" class="btn btn-primary">các số nguyên tố <= N</button>
@@ -72,9 +66,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-10">
-                            
                             <span class="label label-danger"><?php echo $list ?></span>
-                            
                         </div>
                     </div>
             </form>
