@@ -81,6 +81,23 @@
         }  
     }
 
+    if(isset($_POST['ho_ten']) && isset($_POST['ngay_sinh']) && isset($_POST['gioi_tinh']) && isset($_POST['ngay_vao_lam']) && isset($_POST['he_so_luong']) && isset($_POST['so_con']) && isset($_POST['tham_nien']) && isset($_POST['luong_can_ban']) && isset($_POST['so_ngay_vang']) && isset($_POST['dinh_muc_vang']) && isset($_POST['don_gia_phat']) && isset($_POST['so_san_pham']) && isset($_POST['dinh_muc_san_pham']) && isset($_POST['don_gia_san_pham'])){
+        $ho_ten = $_POST['ho_ten'];
+        $ngay_sinh = $_POST['ngay_sinh'];
+        $gioi_tinh = $_POST['gioi_tinh'];
+        $ngay_vao_lam = $_POST['ngay_vao_lam'];
+        $he_so_luong = $_POST['he_so_luong'];
+        $so_con = $_POST['so_con'];
+        $tham_nien = $_POST['tham_nien'];
+        $luong_can_ban = $_POST['luong_can_ban'];
+        $so_ngay_vang = $_POST['so_ngay_vang'];
+        $dinh_muc_vang = $_POST['dinh_muc_vang'];
+        $don_gia_phat = $_POST['don_gia_phat'];
+        $so_san_pham = $_POST['so_san_pham'];
+        $dinh_muc_san_pham = $_POST['dinh_muc_san_pham'];
+        $don_gia_san_pham = $_POST['don_gia_san_pham'];
+    }
+
 
 ?>
 
@@ -110,13 +127,13 @@
                     <label>Họ và tên:</label>
                 </div>
                 <div class="col-sm-4">
-                    <input type="text" name="" id="input" class="form-control" value="" >
+                    <input type="text" name="ho_ten" id="input" class="form-control" value="<?php echo $ho_ten ?>" >
                 </div>
                 <div class="col-sm-2">
                     <label>Số con:</label>
                 </div>
                 <div class="col-sm-2">
-                    <input type="text" name="" id="input" class="form-control" value="" >
+                    <input type="text" name="so_con" id="input" class="form-control" value="<?php echo $so_con ?>" >
                 </div>
             </div>
             <div class="form-group">
@@ -124,13 +141,13 @@
                     <label>ngày sinh:</label>
                 </div>
                 <div class="col-sm-4">
-                    <input type="text" name="" id="input" class="form-control" value="" >
+                    <input type="text" name="" id="input" class="form-control" value="<?php echo $ngay_sinh ?>" >
                 </div>
                 <div class="col-sm-2">
                     <label>Ngày vào làm:</label>
                 </div>
                 <div class="col-sm-4">
-                    <input type="text" name="" id="input" class="form-control" value="" >
+                    <input type="text" name="" id="input" class="form-control" value="<?php echo $ngay_vao_lam ?>" >
                 </div>
             </div>
             <div class="form-group">
@@ -138,7 +155,7 @@
                     <label>Giới tính:</label>
                 </div>
                 <div class="col-sm-2" id="gioi_tinh">
-                    <input type="radio" name="" id="input" class="form-control" value="" >
+                    <input type="radio" name="" id="input" class="form-control" value="<?php echo $gioi_tinh ?>" >
                     <label>nam</label>
                 </div>
                 <div class="col-sm-2" id="gioi_tinh">
@@ -149,7 +166,7 @@
                     <label>Hệ số lương:</label>
                 </div>
                 <div class="col-sm-4">
-                    <input type="text" name="" id="input" class="form-control" value="" >
+                    <input type="text" name="" id="input" class="form-control" value="<?php echo $he_so_luong ?>" >
                 </div>
             </div>
             <div class="form-group">
@@ -170,13 +187,13 @@
                     <label>Số ngày vắng:</label>
                 </div>
                 <div class="col-sm-2">
-                    <input type="text" name="" id="input" class="form-control" value="" >
+                    <input type="text" name="" id="input" class="form-control" value="<?php echo $so_ngay_vang ?>" >
                 </div>
                 <div class="col-sm-2">
                     <label>Số sản phẩm:</label>
                 </div>
                 <div class="col-sm-2">
-                    <input type="text" name="" id="input" class="form-control" value="" >
+                    <input type="text" name="" id="input" class="form-control" value="<?php echo $so_san_pham ?>" >
                 </div>
                 <div class="col-sm-4" id="tang_ca">
                     <label>Tăng ca:</label>
@@ -188,16 +205,16 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-2">
-                        <label>Tiền lương:</label>
+                    <label>Tiền lương:</label>
                 </div>
                 <div class="col-sm-3">
-                    <input type="text" name="" id="input" class="form-control" value="" >
+                    <input type="text" name="" id="input" class="form-control" value="<?php echo tien_luong() ?>" >
                 </div>
                 <div class="col-sm-2">
                         <label>Trợ cấp:</label>
                 </div>
                 <div class="col-sm-3">
-                    <input type="text" name="" id="input" class="form-control" value="" >
+                    <input type="text" name="" id="input" class="form-control" value="<?php echo tro_cap() ?>" >
                 </div>
             </div>
             <div class="form-group" id="thuc_linh">
@@ -205,7 +222,7 @@
                         <label>Thực lĩnh:</label>
                     </div>
                     <div class="col-sm-4">
-                        <input type="text" name="" id="input" class="form-control" value="" >
+                        <input type="text" name="" id="input" class="form-control" value="<?php echo  ?>" >
                     </div>
             </div>
     
