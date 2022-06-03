@@ -1,0 +1,39 @@
+/* body{
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+    max-height: 600px;
+    height: 100%;
+} */
+form{
+    margin-left: 15%;
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+    max-height: 600px;
+    height: 100%;
+    background-color: pink;
+    padding: 0px 20px 10px 20px;
+}
+
+form legend{
+    background-color: rgb(241, 214, 37);
+    color: brown;
+    width: 800px;
+    margin-left: -5px;
+}
+#gioi_tinh,
+#loai_nv,
+#tang_ca{
+    display: flex;
+}
+label{
+    padding-top: 15px;
+    width: 200px;
+}
+#thuc_linh{
+    margin-left: 200px;
+}
+button{
+    margin-left: 50px;
+}

@@ -3,62 +3,18 @@
     $chuoi_2 = "";
     $mang_1 = [];
     $mang_2 = [];
-    $mang_duy_nhat_1 = [];
-    $mang_duy_nhat_2 = [];
-    $mang_moi_1 = [];
-    $mang_moi_2 = [];
-
-    
-    function tim_mang_duy_nhat_1(){
-        global $mang_1;
-        $mang_moi_1 = '';
-        global $mang_duy_nhat_1;
-        for ($i=0; $i < count($mang_1) ; $i++) { 
-            $flag = 0;
-            for ($j=0; $j < count($mang_duy_nhat_1) ; $j++) { 
-                if($mang_1[$i] == $mang_duy_nhat_1[$j]){
-                    $flag = 1;
-                    unset($mang_1[$i]);
-                    
-                }
-                $mang_moi_1= explode(",", $mang_1);
-            }
-        }
-        return $mang_moi_1;
-    }
-    function tim_mang_duy_nhat_2(){
-        global $mang_2;
-        $mang_moi_2 = "";
-        global $mang_duy_nhat_2;
-        for ($i=0; $i < count($mang_2) ; $i++) { 
-            $flag = 0;
-            for ($j=0; $j < count($mang_duy_nhat_2) ; $j++) { 
-                if($mang_2[$i] == $mang_duy_nhat_2[$j]){
-                    $flag = 1;
-                    unset($mang_2[$i]);
-                    
-                }
-                $mang_moi_2= explode(",", $mang_2);
-            }
-        }
-        return $mang_moi_2;
-    }
+    $phan_tu_mang_1 = [];
+    $phan_tu_mang_2 = [];
     if(isset($_POST["chuoi_1"]) && isset($_POST["chuoi_2"])){
         $chuoi_1 = $_POST["chuoi_1"];
         $chuoi_2 = $_POST["chuoi_2"];
 
         $mang_1 = explode(",", $chuoi_1);
         $mang_2 = explode(",", $chuoi_2);
-        $mang_duy_nhat_1 = tim_mang_duy_nhat_1($mang_1);
-        $mang_duy_nhat_2 = tim_mang_duy_nhat_2($mang_2);
-    }
-    function xuat_mang_1($mang_1){
-        $chuoi_mang = implode(" ", $mang_1);
-        return $chuoi_mang;
-    }
-    function xuat_mang_2($mang_2){
-        $chuoi_mang = implode(" ", $mang_2);
-        return $chuoi_mang;
+
+        $phan_tu_mang_1 = array_diff_key($mang_1, $mang_2);
+        $phan_tu_mang_2 = array_diff_key($mang_2, $mang_1);
+        
     }
 ?>
 
@@ -109,7 +65,7 @@
                     phần tử chỉ có trong mảng thứ nhất:
                 </div>
                 <div class="col-sm-7">
-                    <input type="text" name="mang_moi_1" id="input" class="form-control" value="<?php echo xuat_mang_1($mang_moi_1) ?>" >
+                    <input type="text" name="phan_tu_mang_1" id="input" class="form-control" value="<?php echo $phan_tu_mang_1 ?>" >
                 </div>
             </div>
             <div class="form-group">
@@ -117,7 +73,7 @@
                     phần tử chỉ có trong mảng thứ hai:
                 </div>
                 <div class="col-sm-7">
-                    <input type="text" name="mang_moi_2" id="input" class="form-control" value="<?php echo xuat_mang_2($mang_moi_2) ?>" >
+                    <input type="text" name="mang_moi_2" id="input" class="form-control" value="<?php echo $phan_tu_mang_2 ?>" >
                 </div>
             </div>
     </form>
