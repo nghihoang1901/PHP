@@ -60,13 +60,6 @@
                     </div>
                 </div>
         </form>
-        <div class="noi_dung_moi">
-            <?php
-                if(isset($_POST['ten_file'])){
-                    echo str_replace(PHP_EOL, '</br>', file_get_contents($_POST['ten_file']));
-                }
-            ?>
-        </div>
     </div>
 </body>
 </html>
