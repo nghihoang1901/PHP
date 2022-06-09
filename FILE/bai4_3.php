@@ -1,11 +1,13 @@
-<?php 
+<?php
+    echo '<pre>',print_r($_POST),'</pre>';
     if(isset($_POST['ten_file'])){
-        $f = fopen($_POST['ten_file'], 'w');
-        $noi_dung = fwrite($f, $_POST['noi_dung']);
+        $ten_file = $_POST['ten_file'] .'.txt';
+        $f = fopen('file/' . $ten_file, 'a');
+        $noi_dung = $_POST['noi_dung_file'];
+        fwrite($f, $noi_dung);
         fclose($f);
     }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,34 +28,39 @@
         
         <form action="" method="POST" class="form-horizontal" role="form">
                 <div class="form-group">
-                    <legend>TẠO - GHI VÀ ĐỌC FILE VỪA TẠO</legend>
+                    <legend>THÊM NỘI DUNG VÀO FILE</legend>
                 </div>
                 <div class="form-group">
-                    <div class="col-sm-3">
-                        Tên file
+                    <div class="col-sm-2">
+                        Tên file:
                     </div>
-                    <div class="col-sm-8">
-                        <input type="text" name="ten_file" id="input" class="form-control" value="<?php if(isset($_POST['ten_file'])){echo $_POST['ten_file'];} ?>">
+                    <div class="col-sm-10">
+                        <select name="ten_file" id="ten_file">
+                            <option value="da_khuc_mua">Dạ khúc mưa</option>
+                            <option value="doi_dep">Đôi dép</option>
+                            <option value="sang_thang_5">Sáng tháng năm</option>
+                            <option value="trang_khuyet">Trăng khuyết</option>
+                            <option value="yeu">Yêu</option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-sm-3">
-                        Nội dung
+                    <div class="col-sm-2">
+                        Nội dung:
                     </div>
-                    <div class="col-sm-8">
-                        <textarea name="noi_dung" id="" cols="30" rows="10">
-                        <?php if(isset($_POST['noi_dung'])){echo $_POST['noi_dung'];} ?>
+                    <div class="col-sm-10">
+                        <textarea name="noi_dung_file" id="" cols="30" rows="10">
+                            <?php $noi_dung ?>
                         </textarea>
                     </div>
                 </div>
-        
                 <div class="form-group">
                     <div class="col-sm-10 col-sm-offset-2">
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 </div>
         </form>
-        <div class="noi_dung">
+        <div class="noi_dung_moi">
             <?php
                 if(isset($_POST['ten_file'])){
                     echo str_replace(PHP_EOL, '</br>', file_get_contents($_POST['ten_file']));
