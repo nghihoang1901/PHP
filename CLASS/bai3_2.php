@@ -12,23 +12,11 @@
         }
 
         function hien_thi_hinh_anh(){
-            return $title;
-            return $alt;
-            return $src;
-            return $width;
-            return $height;
-            return $border;
-            return $align;
+            
 
         }
     }
-    $hien_thi = '';
-    if(isset($_POST["hien_thi_hinh_anh"])){
-        if(isset($_POST["title"], $_POST["src"], $_POST["alt"], $_POST["width"], $_POST["height"], $_POST["border"], $_POST["align"])){
-            $hien_thi = new hien_thi_hinh_anh(isset($_POST["title"], $_POST["src"], $_POST["alt"], $_POST["width"], $_POST["height"], $_POST["border"], $_POST["align"]));
-        }
-    }
-    return $hien_thi;
+    
 
 ?>
 
@@ -112,11 +100,7 @@
                         <button type="submit" class="btn btn-primary">hiển thị</button>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-sm-8">
-                        <img />
-                    </div>
-                </div>
+                
         </form>
         
     </div>
