@@ -1,0 +1,2 @@
+tên hàng	số lượng	đơn giá	   thành tiền
+sữa tắm	       2	     30000	    60000

@@ -12,11 +12,20 @@
         }
 
         function hien_thi_hinh_anh(){
-            
-
+            $hien_thi = '';
+            $hien_thi .= '<div style ="align-item:"'. $this->align . '/>'; 
+            $hien_thi .= '<div class="title>"'. $this->title . '</div>';
+            $hien_thi .= '<img src='. $this->src . 'alt=' . $this->alt . 'style="height:' . $this->height .'px; width:' . $this->width .' px; border:' . $this->border . '"/>'; 
+            $hien_thi .= '</div>';
+            return $hien_thi;
         }
     }
     
+    $hien_thi = '';
+    if(isset($_POST['title']) && isset($_POST['src']) && isset($_POST['alt']) && isset($_POST['width']) && isset($_POST['height']) && isset($_POST['border'])){
+        $image = new image($_POST['title'], $_POST['src'], $_POST['alt'], $_POST['width'], $_POST['height'], $_POST['border'], $_POST['align']);
+        $hien_thi = $image->hien_thi_hinh_anh();
+    }
 
 ?>
 
@@ -91,7 +100,11 @@
                         canh lề
                     </div>
                     <div class="col-sm-2">
-                        <input type="option" name="align" id="input" class="form-control" value="">
+                        <select name="align" id="">
+                            <option value="center">center</option>
+                            <option value="left">left</option>
+                            <option value="right">right</option>
+                        </select>
                     </div>
                 </div>
         
@@ -102,7 +115,9 @@
                 </div>
                 
         </form>
-        
+        <div class="hien_thi">
+            <?php echo $hien_thi ?>
+        </div>
     </div>
     
 </body>
