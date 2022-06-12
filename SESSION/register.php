@@ -17,16 +17,24 @@
         if($string_data_user){
             $mang_user = json_decode($string_data_user);
         }
-        $noi_dung .="\n" . "\t" . '{' 
-            . "\n" . "\t" . "\t" . '"uname": ' . '"'. $_POST['uname'] . '"' . ',' 
-            . "\n" . "\t" . "\t" . '"psw": ' . '"'. $_POST['psw'] . '"' . ',' 
-            . "\n" . "\t" . "\t" . '"psw-repeat": ' . '"'. $_POST['psw-repeat'] . '"' . ',' 
-            . "\n" . "\t" . "\t" . '"fullname": ' . '"'. $_POST['fullname'] . '"' . ',' 
-            . "\n" . "\t" . "\t" . '"email": ' . '"'. $_POST['email'] . '"' 
-            . "\n" . "\t" . '},' . "\n";
+        // $noi_dung .="\n" . "\t" . '{' 
+        //     . "\n" . "\t" . "\t" . '"uname": ' . '"'. $_POST['uname'] . '"' . ',' 
+        //     . "\n" . "\t" . "\t" . '"psw": ' . '"'. $_POST['psw'] . '"' . ',' 
+        //     . "\n" . "\t" . "\t" . '"psw-repeat": ' . '"'. $_POST['psw-repeat'] . '"' . ',' 
+        //     . "\n" . "\t" . "\t" . '"fullname": ' . '"'. $_POST['fullname'] . '"' . ',' 
+        //     . "\n" . "\t" . "\t" . '"email": ' . '"'. $_POST['email'] . '"' 
+        //     . "\n" . "\t" . '},' . "\n";
         
+        $noi_dung .= "{";
+        $noi_dung .= '"uname":' . '"' . $_POST['uname'] . '",';
+        $noi_dung .= '"psw":' . '"' . $_POST['psw'] . '",';
+        $noi_dung .= '"psw-repeat":' . '"' . $_POST['psw-repeat'] . '",';
+        $noi_dung .= '"fullname":' . '"' . $_POST['fullname'] . '",';
+        $noi_dung .= '"email":' . '"' . $_POST['email'] . '",';
+        $noi_dung .= '},';
+
         $mang_user[] = $noi_dung;
-        $f = fopen('data/register.json', 'w');
+        $f = fopen('data/register.json', 'w+');
         $mang_noi_dung = json_encode($mang_user);
         fwrite($f, $mang_noi_dung);
         fclose($f);
