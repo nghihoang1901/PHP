@@ -14,7 +14,7 @@
             //     $row = fgets($f);
             //     echo $row . '</br>';
             // }
-            echo str_replace(PHP_EOL, '</br>', file_get_contents('file/sang_thang_5.txt'));
+            echo str_replace(PHP_EOL, '</br>', file_get_contents('file/tho/sang_thang_5.txt'));
         ?>
     </div>
 </body>

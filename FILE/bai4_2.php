@@ -1,7 +1,8 @@
 <?php 
     if(isset($_POST['ten_file'])){
         $f = fopen($_POST['ten_file'], 'w');
-        $noi_dung = fwrite($f, $_POST['noi_dung']);
+        $noi_dung = $_POST['noi_dung'];
+        fwrite($f, $noi_dung);
         fclose($f);
     }
 ?>
