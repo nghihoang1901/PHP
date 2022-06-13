@@ -1,45 +1,51 @@
 <?php
     // echo "<pre>",print_r($_POST),"</pre>";
     session_start();
+    $string_data_user = file_get_contents("data/register.json");
+    $mang_user = [];
+    if($string_data_user){
+        $mang_user = json_decode($string_data_user);
+    }
 
     if(isset($_POST['email']) && isset($_POST['uname']) && isset($_POST['fullname']) && isset($_POST['psw']) && isset($_POST['psw-repeat'])){
-        if($_POST['psw'] == $_POST['psw-repeat']){
-            $_SESSION['user_info'] = [$_POST['uname'], 'Hữu Nghị'];
-            echo "Đã tạo tài khoản thành công";
+        if($_POST['email'] && $_POST['uname'] && $_POST['fullname'] && $_POST['psw'] && $_POST['psw-repeat']){
+            if($_POST['psw'] == $_POST['psw-repeat']){
+                $flag_exist = 0;
+                foreach($mang_user as $user_exist){
+                    if($user_exist->uname == $_POST['uname']){
+                        $flag_exist = 1;
+                        break;
+                    }
+                }
+                if($flag_exist == 0){
+                    $user_new = new stdClass;
+                    $user_new->uname = $_POST['uname'];
+                    $user_new->psw = $_POST['psw'];
+                    $user_new->fullname = $_POST['fullname'];
+                    $user_new->email = $_POST['email'];
+                    $mang_user[] = $user_new;
+                    $string_data_user_new = json_encode($mang_user);
+                    file_put_contents("data/user.json", $string_data_user_new);
+                    echo "tạo tài khoản thàn công, sau 3 giây bạn sẽ tự động đăng nhập vào chuyển sang trang thông tin";
+                    sleep(3);
+                    $_SESSION['user_info'] = $user_new;
+                    header("location: xin_chao.php");
+                }
+                else{
+                    echo "Username đã tồn tại, vui lòng tạo lại username";
+                }
+            }
+            else{
+                echo "mật khẩu không khớp, vui lòng kiểm tra lại";
+            }
         }
         else{
-            echo "Mật khẩu không khớp";
+            echo "vui lòng nhập đầy đủ thông tin";
         }
-
-        $string_data_user = file_get_contents("data/register.json");
-        $mang_user = [];
-        $noi_dung ='';
-        if($string_data_user){
-            $mang_user = json_decode($string_data_user);
-        }
-        // $noi_dung .="\n" . "\t" . '{' 
-        //     . "\n" . "\t" . "\t" . '"uname": ' . '"'. $_POST['uname'] . '"' . ',' 
-        //     . "\n" . "\t" . "\t" . '"psw": ' . '"'. $_POST['psw'] . '"' . ',' 
-        //     . "\n" . "\t" . "\t" . '"psw-repeat": ' . '"'. $_POST['psw-repeat'] . '"' . ',' 
-        //     . "\n" . "\t" . "\t" . '"fullname": ' . '"'. $_POST['fullname'] . '"' . ',' 
-        //     . "\n" . "\t" . "\t" . '"email": ' . '"'. $_POST['email'] . '"' 
-        //     . "\n" . "\t" . '},' . "\n";
-        
-        $noi_dung .= "{";
-        $noi_dung .= '"uname":' . '"' . $_POST['uname'] . '",';
-        $noi_dung .= '"psw":' . '"' . $_POST['psw'] . '",';
-        $noi_dung .= '"psw-repeat":' . '"' . $_POST['psw-repeat'] . '",';
-        $noi_dung .= '"fullname":' . '"' . $_POST['fullname'] . '",';
-        $noi_dung .= '"email":' . '"' . $_POST['email'] . '",';
-        $noi_dung .= '},';
-
-        $mang_user[] = $noi_dung;
-        $f = fopen('data/register.json', 'w+');
-        $mang_noi_dung = json_encode($mang_user);
-        fwrite($f, $mang_noi_dung);
-        fclose($f);
-        echo "<pre>",print_r($mang_user),"</pre>";
-        
+            
+    }
+    if(isset($_SESSION['user_info']) || isset($_COOKIE['user_info'])){
+        header("location: xin_chao.php");
     }
         
 

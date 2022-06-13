@@ -101,14 +101,19 @@
         }
 
         /* The "Forgot password" text */
-        span.psw {
+        span.psw,
+        span.signup {
         float: right;
         padding-top: 16px;
         }
-
+        span.signup {
+            margin-bottom: 16px;
+            margin-top: -50px;
+        }
         /* Change styles for span and cancel button on extra small screens */
         @media screen and (max-width: 300px) {
-        span.psw {
+        span.psw,
+        span.signup {
             display: block;
             float: none;
         }
@@ -133,27 +138,31 @@
                 <h2>Login Form</h2>
 
                 <form action="" method="post">
-                <div class="imgcontainer">
-                    <img src="images/img_avatar2.png" alt="Avatar" class="avatar">
-                </div>
+                    <div class="imgcontainer">
+                        <img src="images/img_avatar2.png" alt="Avatar" class="avatar">
+                    </div>
 
-                <div class="container_form">
-                    <label for="uname"><b>Username</b></label>
-                    <input type="text" placeholder="Enter Username" name="uname" required>
+                    <div class="container_form">
+                        <label for="uname"><b>Username</b></label>
+                        <input type="text" placeholder="Enter Username" name="uname" required>
 
-                    <label for="psw"><b>Password</b></label>
-                    <input type="password" placeholder="Enter Password" name="psw" required>
+                        <label for="psw"><b>Password</b></label>
+                        <input type="password" placeholder="Enter Password" name="psw" required>
+                            
+                        <button type="submit">Login</button>
+                        <label>
+                        <input type="checkbox" checked="checked" name="remember"> Remember me
+                        </label>
+                    </div>
+
+                    <div class="container_form" style="background-color:#f1f1f1">
+                        <button type="button" class="cancelbtn">Cancel</button>
+                        <span class="psw">Forgot <a href="#">password?</a></span>
                         
-                    <button type="submit">Login</button>
-                    <label>
-                    <input type="checkbox" checked="checked" name="remember"> Remember me
-                    </label>
-                </div>
-
-                <div class="container_form" style="background-color:#f1f1f1">
-                    <button type="button" class="cancelbtn">Cancel</button>
-                    <span class="psw">Forgot <a href="#">password?</a></span>
-                </div>
+                    </div>
+                    <div class="container_form" style="background-color:#f1f1f1">
+                        <span class="signup">create Account? <a href="register.php">Sign up</a>.</span>
+                    </div>
                 </form>
                 <?php
             }

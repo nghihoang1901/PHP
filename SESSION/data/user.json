@@ -1,12 +1,1 @@
-[
-    {
-        "uname": "huunghi",
-        "psw": 123456,
-        "fullname": "Hữu Nghị"
-    },
-    {
-        "uname": "nghihoang",
-        "psw": 123456,
-        "fullname": "Nghị Hoàng"
-    }
-]
+["{\"uname\":\"ads\",\"psw\":\"as\",\"psw-repeat\":\"as\",\"fullname\":\"asd\",\"email\":\"ads\",},",{"uname":"huunghi","psw":"adadad","fullname":"H\u1eefu Ngh\u1ecb","email":"hoanghuunghi113@gmail.com"}]
