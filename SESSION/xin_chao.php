@@ -30,7 +30,7 @@
         $show_or_hide_form = 1;
         if(isset($_SESSION['user_info'])){
             ?>
-            <div> <?php echo "xin chào bạn ". $_SESSION['user_info']->fullname; ?>
+            <div> <?php echo "xin chào bạn ". $_SESSION['user_info']->ho_ten; ?>
             <a href="?logout=1" class="btn btn-danger">đăng xuất</a>
             </div>
             <?php
@@ -40,7 +40,7 @@
         else if(isset($_COOKIE['user_info'])){
             $mang_thong_tin = json_decode($_COOKIE['user_info']);
             ?>
-            <div> <?php echo "xin chào bạn " . $mang_thong_tin->fullname; ?>
+            <div> <?php echo "xin chào bạn " . $mang_thong_tin->ho_ten; ?>
             <a href="?logout=1" class="btn btn-danger">đăng xuất</a>
             </div>
             <?php
