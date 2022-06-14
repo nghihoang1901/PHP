@@ -1,5 +1,5 @@
 <?php
-    $dbh = new PDO('mysql:host=localhost;dbname=ban_sach_online_db', 'root', '');
+    $dbh = new PDO('mysql:host=localhost;dbname=ban_sach_online_db;charset=utf8', 'root', '');
     $sql = "SELECT * FROM bs_sach";
     $sth = $dbh->prepare($sql);
     $sth->execute();
