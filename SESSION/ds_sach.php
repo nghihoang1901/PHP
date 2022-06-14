@@ -4,6 +4,7 @@
     $sth = $dbh->prepare($sql);
     $sth->execute();
     $ds_sach = $sth->fetchAll(PDO::FETCH_OBJ);
+    // echo "<pre>",print_r($ds_sach) ,"</pre>"
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +34,7 @@
                             ?>
                        </div>   
                        <div class="images_sach">
-                            <img src="images/sach <?php echo $sach->hinh; ?>" alt="">
+                            <img src="images/sach/<?php echo $sach->hinh; ?>" alt="">
                        </div>  
                        <div class="don_gia">
                             <?php
