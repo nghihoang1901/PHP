@@ -385,5 +385,180 @@ UPDATE bs_sach_tam
 --  -------------------------------------------------------------
 -- BAI 1.10
 -- cau 1: Hãy xóa sách có id là '91' trong bảng sách tạm
-DELETE FROM bs_sach_tam
- WHERE id = 91;
+DELETE FROM bang_sach_tam
+WHERE id = 91;
+-- cau 2. Hãy xóa tất cả những sách của nhà xuất bản “Amazon” có trong bảng bang_sach_tam
+DELETE FROM bang_sach_tam
+WHERE id_nha_xuat_ban = (
+    SELECT s.id_nha_xuat_ban
+    FROM bs_nha_xuat_ban nxb JOIN bs_sach s ON s.id_nha_xuat_ban = nxb.id
+    WHERE ten_nha_xuat_ban LIKE "%Amazon%"
+    GROUP BY nxb.id
+);
+-- cau 3. Hãy xóa những sách có đơn giá nhỏ hơn 50000 VNĐ trong bang_sach_tam
+DELETE FROM bang_sach_tam
+WHERE don_gia < 50000
+-- cau 4. Hãy xóa những sách của tác giả “Âu Dương Mặc Tâm” có đơn giá lớn hơn 50000 VNĐ trong bang_sach_tam
+DELETE FROM bang_sach_tam
+WHERE don_gia > 50000 AND id_tac_gia = (
+    SELECT s.id_tac_gia
+    FROM bs_tac_gia tg JOIN bs_sach s ON s.id_tac_gia = tg.id
+    WHERE ten_tac_gia LIKE "%Âu Dương Mặc Tâm%"
+    GROUP BY tg.id
+)
+-- cau 5. Hãy xóa những sách mà phần giới thiệu không có từ 'trẻ' trong bang_sach_tam
+DELETE FROM bang_sach_tam
+WHERE gioi_thieu NOT IN (
+    SELECT gioi_thieu
+    FROM bs_sach
+    WHERE gioi_thieu LIKE "%trẻ%")
+-- cau 6. Hãy xoá nhà xuất bản mà không có quyển sách nào
+SELECT ten_nha_xuat_ban, email, dia_chi, dien_thoai, COUNT(s.id) AS so_luong_sach
+FROM bs_nha_xuat_ban nxb JOIN bs_sach s ON nxb.id = s.id_nha_xuat_ban
+WHERE so_luong_sach < 1
+GROUP BY nxb.id
+
+-- ---------------------------------------------
+-- BAI 1.11
+
+-- cau 1:Liệt kê danh sách nhân viên gồm có các thông tin sau: họ tên, ngày sinh, địa chỉ
+SELECT ho_ten, ngay_sinh, dia_chi
+FROM nhan_vien
+--  cau 2: Liệt kê danh sách nhân viên gồm có các thông tin sau: họ tên, CMND, mức lương. Chỉ liệt kê các nhân viên có họ tên bắt đầu là ‘N’
+SELECT ho_ten, CMND, muc_luong
+FROM nhan_vien
+WHERE ho_ten LIKE "N%"
+-- cau 3: Liệt kê danh sách nhân viên sắp xếp giảm dần theo mức lương và tăng dần theo họ tên.
+SELECT *
+FROM nhan_vien
+ORDER BY muc_luong DESC, ho_ten ASC;
+-- cau 4: Liệt kê danh sách các nhân viên (họ tên) của đơn vị có ID=1 có thể được phân công vào loại công việc có ID=2.
+SELECT nv.*
+FROM nhan_vien nv JOIN phieu_phan_cong ppc ON nv.id = ppc.id_nhan_vien
+WHERE id_don_vi = 1 AND id_loai_cong_viec = 2
+GROUP BY ppc.id
+-- cau 5: Liệt kê danh sách các phiếu phân công trong tháng 11/2014
+SELECT *
+FROM phieu_phan_cong
+WHERE MONTH(ngay_bat_dau) = 4 AND YEAR(ngay_bat_dau) = 2014
+--  cau 6: Liệt kê danh sách các phiếu phân công trong quý 4 năm 2014 của nhân viên có tên là “Trần thanh thụy Lan”
+SELECT ppc.*
+FROM phieu_phan_cong ppc JOIN nhan_vien nv ON ppc.id_nhan_vien = nv.id
+WHERE MONTH(ppc.ngay_bat_dau) IN (10,11,12) AND YEAR(ppc.ngay_bat_dau) = 2014 AND ho_ten = "Trần thanh thụy Lan" 
+-- cau 7: Liệt kê danh sách các nhân viên mà trong họ tên có từ “Trang”.
+SELECT *
+FROM nhan_vien
+WHERE ho_ten LIKE "%Trang%"
+-- cau 8: Liệt kê danh sách các nhân viên có mức lương từ 5.000.000 đến 8.000.000, danh sách được xếp theo thứ tự mức lương giảm dần.
+SELECT *
+FROM nhan_vien
+WHERE muc_luong BETWEEN 5000000 AND 8000000
+ORDER BY muc_luong DESC
+-- cau 9: Liệt kê danh sách các nhân viên có mức lương từ 9.000.000 trở lên.
+SELECT *
+FROM nhan_vien
+WHERE muc_luong >= 9000000
+-- cau 10: Liệt kê danh sách các nhân viên có khả năng sử dụng từ 2 ngoại ngữ trở lên
+SELECT nv.*, COUNT(kn.id) AS so_ngoai_ngu
+FROM nhan_vien nv JOIN kha_nang kn ON nv.id = kn.id_nhan_vien
+    JOIN ngoai_ngu nn ON nn.id = kn.id_ngoai_ngu
+GROUP BY nv.id
+HAVING so_ngoai_ngu >= 2
+-- cau 11: Liệt kê danh sách các nhân viên có khả năng sử dụng 3 thứ tiếng: tiếng Anh, Pháp, Đức.
+SELECT nv.*, COUNT(kn.id) AS so_ngoai_ngu
+FROM nhan_vien nv JOIN kha_nang kn ON nv.id = kn.id_nhan_vien
+    JOIN ngoai_ngu nn ON nn.id = kn.id_ngoai_ngu
+WHERE nn.ten IN ('Anh','Pháp', 'Đức')
+GROUP BY nv.id
+HAVING so_ngoai_ngu >= 3
+-- cau 12: Thống kê tổng số nhân viên theo từng đơn vị, gồm các thông tin: tên đơn vị, tổng số nhân viên.
+SELECT nv.*, COUNT(nv.id) AS so_luong_nhan_vien
+FROM nhan_vien nv JOIN don_vi dv ON nv.id_don_vi = dv.id
+GROUP BY dv.id
+-- cau 13: Cho biết mức lương trung bình của các nhân viên thuộc “Đơn vị C”
+SELECT ho_ten, dv.ten, AVG(muc_luong) AS luong_trung_binh
+FROM nhan_vien nv JOIN don_vi dv ON nv.id_don_vi = dv.id
+WHERE dv.ten = "Đơn vị C"
+GROUP BY nv.id
+-- cau 14:Cho biết loại công việc nào có nhiều phiếu phân công nhất?
+SELECT lcv.ten, COUNT(ppc.id) AS so_luong_phieu_phan_cong
+FROM loai_cong_viec lcv JOIN phieu_phan_cong ppc ON lcv.id = ppc.id_loai_cong_viec
+GROUP BY lcv.id
+ORDER BY so_luong_phieu_phan_cong DESC
+LIMIT 1
+-- cau 15: Cho biết nhân viên nào trẻ tuổi nhất của “Đơn vị D”.
+SELECT ho_ten, (YEAR(CURDATE()) - YEAR(ngay_sinh)) AS tuoi
+FROM nhan_vien nv JOIN don_vi dv ON nv.id_don_vi = dv.id
+WHERE dv.ten = "Đơn vị D"
+ORDER BY tuoi 
+LIMIT 1 
+-- cau 16: Cho biết mức lương thấp nhất, mức lương cao nhất của từng đơn vị
+SELECT dv.ten, MAX(nv.muc_luong) AS luong_cao_nhat, MIN(nv.muc_luong) AS luong_thap_nhat
+FROM nhan_vien nv JOIN don_vi dv ON nv.id_don_vi = dv.id
+GROUP BY dv.id
+-- cau 17: Cho biết loại công việc nào yêu cầu cần phải biết tiếng “Brazil”.
+SELECT lcv.ten
+FROM loai_cong_viec lcv JOIN yeu_cau yc ON lcv.id = yc.id_loai_cong_viec
+    JOIN ngoai_ngu nn ON nn.id = yc.id_ngoai_ngu
+WHERE nn.ten = "Brazil"
+GROUP BY yc.id
+-- cau 18: Cho biết loại công việc nào chỉ yêu cầu biết 1 ngoại ngữ
+SELECT lcv.ten, COUNT(yc.id_ngoai_ngu) AS so_ngoai_ngu
+FROM loai_cong_viec lcv JOIN yeu_cau yc ON lcv.id = yc.id_loai_cong_viec
+    JOIN ngoai_ngu nn ON nn.id = yc.id_ngoai_ngu
+GROUP BY lcv.id
+HAVING so_ngoai_ngu = 1
+-- cau 19: Viết truy vấn và dựa vào kết quả truy vấn để trả lời câu hỏi sau: Có thể phân công nhân viên có ID=10 vào loại công việc có ID=1 với ngày bắt đầu là 20/1/2015 và số ngày = 2 không? Nếu câu trả lời là “Phân công được” thì không cần thực hiện gì thêm. Nếu câu trả lời là “Không phân công được” thì cho biết lý do tại sao?
+SELECT IF(COUNT(*) > 0, 'Nhân viên không đủ khả năng ngoại ngữ', 'nhân viên đủ đáp ứng ngoại ngữ')
+FROM (
+    SELECT nv.ho_ten, kn.id_ngoai_ngu
+    FROM nhan_vien nv JOIN kha_nang kn ON nv.id = kn.id_nhan_vien
+    WHERE nv.id = 10
+) temp
+RIGHT JOIN
+(
+    SELECT lcv.ten, yc.id_ngoai_ngu
+    FROM loai_cong_viec lcv JOIN yeu_cau yc ON lcv.id = yc.id_loai_cong_viec
+    WHERE lcv.id = 1
+) temp2
+ON temp.id_ngoai_ngu = temp2.id_ngoai_ngu
+WHERE temp.ho_ten IS NULL
+
+SELECT nv.ho_ten, ppc.id, ppc.ngay_bat_dau, so_ngay, ADDDATE(ngay_bat_dau, so_ngay) AS ngay_ket_thuc,
+    IF('2015-01-20' > ngay_bat_dau && '2015-01-20' < ADDDATE(ngay_bat_dau, so_ngay), 'Nhân viên đã bận', 'Nhân viên còn trống lịch'),
+    IF('2015-01-20' > ngay_bat_dau && '2015-01-20' < ADDDATE(ngay_bat_dau, so_ngay), 0, 1) AS ket_luan
+FROM nhan_vien nv JOIN phieu_phan_cong ppc ON nv.id = ppc.id_nhan_vien
+WHERE nv.id = 10
+HAVING ket_luan = 0;
+-- cau 20: Thêm mới 1 nhân viên vào bảng nhân viên với những thông tin sau: Trần thạch Anh, 1, 1980-10-10, 023485214, 7.900.000, 357 Lê Hồng Phong phường 2 Quận 10, 1
+INSERT INTO nhan_vien
+VALUES (NULL,'Trần thạch Anh', 1, '1980-10-10', '023485214', 7900000, '357 Lê Hồng Phong phường 2 Quận 10', 1)
+-- cau 21: Thêm mới khả năng cho nhân viên vừa thêm: nhân viên “Trần thạch Anh” có thể sử dụng tiếng “Anh” và tiếng “Pháp”.
+INSERT INTO kha_nang(id_nhan_vien, id_ngoai_ngu)
+SELECT *
+FROM (
+    SELECT id AS id_nhan_vien
+    FROM nhan_vien
+    WHERE ho_ten LIKE "%Trần thạch Anh%"
+) AS temp_nhan_vien
+JOIN (
+    SELECT id AS id_ngoai_ngu
+    FROM ngoai_ngu
+    WHERE ten IN  ('Anh', 'Pháp')
+) AS temp_ngoai_ngu
+ON 1 = 1
+-- cau 22: Tạo một bảng tạm có tên là nhan_vien_don_vi_A có cấu trúc giống như bảng nhan_vien và thêm các nhân viên thuộc “Đơn vị A” từ bảng nhan_vien vào bảng này.
+INSERT INTO nhan_vien_don_vi_a
+SELECT *
+FROM nhan_vien 
+WHERE id_don_vi = (
+    SELECT id
+    FROM don_vi
+    WHERE ten LIKE "%Đơn vị A%"
+)
+-- cau 23: Hãy cập nhật lại mức lương của các nhân viên trong bảng nhan_vien_don_vi_A với mức lương mới bằng mức lương cũ + 5%.
+UPDATE nhan_vien_don_vi_a
+    SET muc_luong  = muc_luong + muc_luong / 100 * 5
+-- cau 24:  Hãy xóa các nhân viên có năm sinh nhỏ hơn 1975 trong bảng nhan_vien_don_vi_A.
+DELETE FROM nhan_vien_don_vi_a
+WHERE YEAR(ngay_sinh) < 1975
